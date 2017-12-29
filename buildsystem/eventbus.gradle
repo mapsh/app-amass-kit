@@ -1,0 +1,9 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    api(rootProject.ext.dependencies["eventbus"])
+   // kapt rootProject.ext.compilers["eventbus"]
+}
+

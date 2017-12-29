@@ -1,0 +1,5 @@
+apply plugin: 'org.greenrobot.greendao'
+dependencies {
+    api 'org.greenrobot:greendao:3.2.2'
+    api 'net.zetetic:android-database-sqlcipher:3.5.7'
+}

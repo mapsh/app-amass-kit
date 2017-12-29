@@ -1,0 +1,10 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+dependencies {
+    api rootProject.ext.dependencies["dagger2"]
+    kapt rootProject.ext.compilers["dagger2"]
+    api rootProject.ext.dependencies["dagger2-android"]
+    api rootProject.ext.dependencies["dagger2-android-support"]
+    kapt rootProject.ext.compilers["dagger2-android"]
+}

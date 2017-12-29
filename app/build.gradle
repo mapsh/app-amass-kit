@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+//apply from: 'tinker-support.gradle'
+
+apply from: rootDir.absolutePath.concat('/buildsystem/basegradle.gradle')
+apply from: rootDir.absolutePath.concat('/buildsystem/bugly.gradle')
+apply from: rootDir.absolutePath.concat('/buildsystem/taskbuildtime.gradle')
+apply from: rootDir.absolutePath.concat('/buildsystem/leakcanary.gradle')
+apply from: rootDir.absolutePath.concat('/buildsystem/arouter.gradle')
+apply from: rootDir.absolutePath.concat('/buildsystem/dagger2.gradle')
+
+android {
+    signingConfigs {
+        debug {
+            storeFile file('../keystore/debug.keystore')
+            storePassword 'android'
+        }
+    }
+    defaultConfig {
+        applicationId "com.mapsh.app.amass.demo"
+        multiDexEnabled true
+        ndk {
+            // 设置支持的 SO 库构架，注意这里要根据你的实际情况来设置
+            abiFilters 'armeabi-v7a'//, 'armeabi'// 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            signingConfig = signingConfigs.debug
+        }
+    }
+
+
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["multidex"]
+
+}
+repositories {
+    mavenCentral()
+}

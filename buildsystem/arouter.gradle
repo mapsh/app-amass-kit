@@ -1,0 +1,19 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+kapt {
+    arguments {
+        def projectName = project.getName()
+        projectName = projectName.replace("-", "")
+        //arg.put('moduleName', projectName)
+        arg("moduleName", projectName)
+
+    }
+}
+dependencies {
+    api(rootProject.ext.dependencies["arouter"], {
+        exclude group: 'com.android.support', module: 'support-v4'
+    })
+    kapt rootProject.ext.compilers["arouter"]
+}
+

@@ -1,0 +1,7 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+dependencies {
+    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:${rootProject.ext.versions.kotlin}"
+    api "org.jetbrains.kotlin:kotlin-reflect:${rootProject.ext.versions.kotlin}"
+}

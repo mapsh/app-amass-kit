@@ -1,0 +1,52 @@
+/*
+import org.gradle.internal.time.Time
+
+//监听构建任务耗时
+class BuildTimeListener implements TaskExecutionListener, BuildListener {
+
+    private org.gradle.internal.time.Clock clock
+    private times = []
+
+    @Override
+    void buildStarted(Gradle gradle) {
+
+    }
+
+    @Override
+    void beforeExecute(Task task) {
+        clock =  Time.clock()
+    }
+
+    @Override
+    void settingsEvaluated(Settings settings) {
+
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState state) {
+        def ms = clock.getCurrentTime()
+        times.add([ms, task.path])
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println("Task spand time:")
+        for (time in times) {
+            if (time[0] >= 50) {
+                printf("%7sms %s\n", time)
+            }
+        }
+    }
+}
+
+project.gradle.addListener(new BuildTimeListener())*/

@@ -1,0 +1,9 @@
+dependencies {
+    api(rootProject.ext.dependencies["rxjava"])
+    api(rootProject.ext.dependencies["rxandroid"])
+    api(rootProject.ext.dependencies["rxkotlin"])
+    api(rootProject.ext.dependencies["rxlifecycle"])
+    api(rootProject.ext.dependencies["rxlifecycle-android"])
+    api(rootProject.ext.dependencies["rxlifecycle-components"])
+    api(rootProject.ext.dependencies["rxbinding"])
+}

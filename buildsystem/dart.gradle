@@ -1,0 +1,10 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+dependencies {
+    api 'com.f2prateek.dart:dart:2.0.3'
+    compileOnly 'com.f2prateek.dart:dart-processor:2.0.3'
+    api 'com.f2prateek.dart:henson:2.0.3'
+    compileOnly 'com.f2prateek.dart:henson-processor:2.0.3'
+}
+
