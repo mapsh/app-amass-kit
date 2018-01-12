@@ -7,7 +7,9 @@ import java.util.Stack;
 /**
  * 应用程序Activity管理类：用于Activity管理和应用程序退出
  * <p>
- * Created by mapsh on 16/1/6.
+ *
+ * @author mapsh
+ * @date 16/1/6
  */
 public class AppActivityManager {
 

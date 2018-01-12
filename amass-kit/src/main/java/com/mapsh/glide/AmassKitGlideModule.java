@@ -8,5 +8,5 @@ import com.bumptech.glide.module.AppGlideModule;
  */
 
 @GlideModule
-final class AmassKitGlideModule extends AppGlideModule {
+public final class AmassKitGlideModule extends AppGlideModule {
 }

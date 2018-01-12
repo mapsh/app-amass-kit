@@ -7,7 +7,9 @@ import android.view.animation.TranslateAnimation;
 /**
  * Animations util
  * <p>
- * Created by mapsh on 17/12/29.
+ *
+ * @author mapsh
+ * @date 17/12/29
  */
 
 public class AnimationUtils {

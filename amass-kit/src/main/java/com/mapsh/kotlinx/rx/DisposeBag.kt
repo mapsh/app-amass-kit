@@ -1,6 +1,6 @@
 package com.mapsh.kotlinx.rx
 
-import android.arch.lifecycle.DefaultLifecycleObserver
+import android.arch.lifecycle.GenericLifecycleObserver
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import io.reactivex.disposables.CompositeDisposable
@@ -21,7 +21,7 @@ object DisposeBagPlugins {
 
 class DisposeBag @JvmOverloads constructor(owner: LifecycleOwner,
                                            private val event: Lifecycle.Event = DisposeBagPlugins.defaultLifecycleDisposeEvent)
-    : Disposable, DisposableContainer, DefaultLifecycleObserver {
+    : Disposable, DisposableContainer, GenericLifecycleObserver {
 
     @JvmOverloads constructor(resources: Iterable<Disposable>,
                               owner: LifecycleOwner,
@@ -52,15 +52,34 @@ class DisposeBag @JvmOverloads constructor(owner: LifecycleOwner,
 
     override fun delete(d: Disposable) = composite.delete(d)
 
-    override fun onPause(owner: LifecycleOwner) {
-        if (event == Lifecycle.Event.ON_PAUSE) dispose()
+
+    override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
+        when (e) {
+            Lifecycle.Event.ON_CREATE  -> {
+            }
+            Lifecycle.Event.ON_PAUSE   -> {
+                if (event == Lifecycle.Event.ON_PAUSE) {
+                   dispose()
+                }
+            }
+            Lifecycle.Event.ON_START   -> {
+            }
+            Lifecycle.Event.ON_RESUME  -> {
+
+            }
+            Lifecycle.Event.ON_STOP    -> {
+                if (event == Lifecycle.Event.ON_STOP) {
+                    dispose()
+                }
+            }
+            Lifecycle.Event.ON_DESTROY -> {
+                if (event == Lifecycle.Event.ON_DESTROY) {
+                    dispose()
+                }
+            }
+            Lifecycle.Event.ON_ANY     -> {
+            }
+        }
     }
 
-    override fun onStop(owner: LifecycleOwner) {
-        if (event == Lifecycle.Event.ON_STOP) dispose()
-    }
-
-    override fun onDestroy(owner: LifecycleOwner) {
-        if (event == Lifecycle.Event.ON_DESTROY) dispose()
-    }
 }

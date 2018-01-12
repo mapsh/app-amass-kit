@@ -7,7 +7,9 @@ import android.content.pm.ApplicationInfo;
 import android.util.Log;
 
 /**
- * Created by mapsh on 2017/5/4.
+ *
+ * @author mapsh
+ * @date 2017/5/4
  */
 
 @SuppressWarnings("unchecked")

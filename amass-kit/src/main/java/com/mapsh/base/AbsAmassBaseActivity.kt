@@ -9,7 +9,6 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
  */
 abstract class InitActivity : RxAppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppActivityManager.getAppManager().addActivity(this)

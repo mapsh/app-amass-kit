@@ -1,20 +1,17 @@
 package com.shidou.hotelsharing
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import com.alibaba.android.arouter.facade.Postcard
-import com.alibaba.android.arouter.facade.callback.NavigationCallback
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
+import com.mapsh.base.InitActivity
 import com.mapsh.glide.GlideApp
-import com.shidou.base.BaseEmptyActivity
-import com.shidou.dao.Self
-import com.shidou.module.login.LoginOrRegisterActivity
-import com.shidou.router.AppMainRouter
-import com.shidou.utils.RxHelper
-import io.objectbox.BoxStore
+import com.mapsh.kotlinx.rx.disposedWith
+import com.mapsh.utils.RxHelper
+import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.splash_activity.*
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by mapsh on 2017/7/19.
@@ -25,7 +22,7 @@ import kotlinx.android.synthetic.main.splash_activity.*
  *
  */
 
-class SplashActivity : BaseEmptyActivity() {
+class SplashActivity : InitActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +31,10 @@ class SplashActivity : BaseEmptyActivity() {
         tvSkip.setOnClickListener {
             skip()
         }
+
+
+
+
         RxHelper.countdown(5)
                 .compose(RxHelper.bindToLifecycle(this))
                 .compose(RxHelper.io2Main())
@@ -44,7 +45,7 @@ class SplashActivity : BaseEmptyActivity() {
                     if (it >= 1) {
                         tvSkip.text = String.format("%d 秒跳过", it)
                     } else {
-                        skip()
+                      //  skip()
                     }
                 }
     }
@@ -62,28 +63,11 @@ class SplashActivity : BaseEmptyActivity() {
     }
 
     private fun skip() {
-        //查找是否有登录
-        val user = BoxStore.getDefault().boxFor(Self::class.java)
-                .query().build().findFirst()
-        if (user == null) {
-            startActivity(Intent(this, LoginOrRegisterActivity::class.java))
-            finish()
-        } else {
-            AppMainRouter.launch(this, object : NavigationCallback {
-                override fun onLost(postcard: Postcard?) {
-                }
 
-                override fun onFound(postcard: Postcard?) {
-                }
-
-                override fun onInterrupt(postcard: Postcard?) {
-                }
-
-                override fun onArrival(postcard: Postcard?) {
-                    finish()
-                }
-            })
-        }
+        Flowable.interval(1, TimeUnit.SECONDS)
+                .subscribe {
+                    Timber.e("$it")
+                }.disposedWith(this)
 
 
     }
