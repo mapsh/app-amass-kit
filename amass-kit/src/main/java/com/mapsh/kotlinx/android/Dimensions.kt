@@ -3,27 +3,49 @@ package com.mapsh.kotlinx.android
 import android.app.Fragment
 import android.content.Context
 import android.view.View
-import com.mapsh.kotlinx.android.common.CommonImpl
 
 /**
  * Created by mapsh on 2017/8/17.
  */
 
-
-/**
- * context
+/*
+  ---------- context ----------
  */
-fun Context.dip2px(value: Int): Int = CommonImpl.dip2px(this, value)
-
-fun Context.px2dip(value: Int): Int = CommonImpl.px2dip(this, value)
-
-fun Context.sp2px(value: Int): Int = CommonImpl.sp2px(this, value)
-
-fun Context.px2sp(value: Int): Int = CommonImpl.px2sp(this, value)
-
 
 /**
- * view
+ * screen width in pixels
+ */
+val Context.screenWidth: Int
+    get() = resources.displayMetrics.widthPixels
+
+/**
+ * screen height in pixels
+ */
+val Context.screenHeight: Int
+    get() = resources.displayMetrics.heightPixels
+
+fun Context.dip2px(dip: Int): Int {
+    val scale = resources.displayMetrics.density
+    return (dip * scale + 0.5f).toInt()
+}
+
+fun Context.px2dip(px: Int): Int {
+    val scale = resources.displayMetrics.density
+    return (px / scale + 0.5f).toInt()
+}
+
+fun Context.sp2px(sp: Int): Int {
+    val fontScale = resources.displayMetrics.scaledDensity
+    return (sp * fontScale + 0.5f).toInt()
+}
+
+fun Context.px2sp(px: Int): Int {
+    val fontScale = resources.displayMetrics.scaledDensity
+    return (px / fontScale + 0.5f).toInt()
+}
+
+/*
+ ---------- view ----------
  */
 fun View.dip2px(value: Int): Int = context.dip2px(value)
 
@@ -33,9 +55,8 @@ fun View.sp2px(value: Int): Int = context.sp2px(value)
 
 fun View.px2sp(value: Int): Int = context.px2sp(value)
 
-
-/**
- * fragment
+/*
+ ---------- fragment ----------
  */
 fun Fragment.dip2px(value: Int): Int = activity.dip2px(value)
 

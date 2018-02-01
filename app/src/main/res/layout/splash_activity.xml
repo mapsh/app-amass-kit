@@ -24,4 +24,9 @@
         android:layout_margin="20dp"
         android:background="@drawable/bg_ad_skip"
         android:padding="8dp" />
+
+<android.support.design.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"></android.support.design.widget.CoordinatorLayout>
+
 </FrameLayout>

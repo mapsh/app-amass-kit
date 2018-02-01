@@ -44,6 +44,7 @@ dependencies {
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["multidex"]
     implementation project(':amass-kit')
+    implementation 'com.android.support:design:27.0.2'
 }
 repositories {
     mavenCentral()

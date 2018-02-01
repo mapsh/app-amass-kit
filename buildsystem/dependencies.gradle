@@ -33,7 +33,7 @@ ext {
             "eventbus-api"               : "3.1.1",
             "eventbus-compiler"          : "3.1.0",
             timber                       : "4.6.0",
-            kotlin                       : "1.2.10",
+            kotlin                       : "1.2.21",
             BaseRecyclerViewAdapterHelper: "2.9.34"
     ]
     compilers = [

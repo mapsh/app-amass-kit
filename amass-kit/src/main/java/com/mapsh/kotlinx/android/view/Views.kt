@@ -8,9 +8,9 @@ import android.support.annotation.IntRange
 import android.support.annotation.UiThread
 import android.support.v4.content.ContextCompat
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 
 /**
  * Sets the view's visibility to GONE
@@ -46,6 +46,21 @@ inline fun View.toggle() {
     visibility = if (visibility == View.VISIBLE) View.GONE else View.VISIBLE
 }
 
+/**
+ * 为view添加OnGlobalLayoutListener监听并在测量完成后自动取消监听同时执行[action]函数
+ *
+ * @param action
+ */
+inline fun <T : View> T.afterMeasured(crossinline action: T.() -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            if (measuredWidth > 0 && measuredHeight > 0) {
+                viewTreeObserver.removeOnGlobalLayoutListener(this)
+                action()
+            }
+        }
+    })
+}
 
 @UiThread
 inline fun View.fadeIn(duration: Long = 400) {

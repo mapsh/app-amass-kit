@@ -8,11 +8,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
 /**
+ * 软键盘操作 扩展函数
+ *
  * @author  mapsh on 2017/12/21 10:51.
  *
  */
 
-fun Activity.showKeyboard(focusView: View? = currentFocus): Boolean {
+fun Activity.showSoftInput(focusView: View? = currentFocus): Boolean {
     focusView?.let {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -21,7 +23,7 @@ fun Activity.showKeyboard(focusView: View? = currentFocus): Boolean {
     return false
 }
 
-fun Activity.hideKeyboard(focusView: View? = currentFocus): Boolean {
+fun Activity.hideSoftInput(focusView: View? = currentFocus): Boolean {
     focusView?.let {
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         return inputMethodManager.hideSoftInputFromWindow(focusView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
@@ -29,8 +31,15 @@ fun Activity.hideKeyboard(focusView: View? = currentFocus): Boolean {
     return false
 }
 
-fun EditText.showKeyboard() {
+fun EditText.showSoftInput() {
     requestFocus()
     val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_FORCED)
 }
+
+
+fun Context.isSoftInputActive(): Boolean {
+    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    return inputMethodManager.isActive
+}
+
