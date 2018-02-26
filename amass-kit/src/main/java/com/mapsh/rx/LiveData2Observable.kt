@@ -1,4 +1,4 @@
-package com.mapsh.kotlinx.rx
+package com.mapsh.rx
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
@@ -10,7 +10,7 @@ import io.reactivex.android.MainThreadDisposable
  * @author mapsh on 2017/12/15 10:08.
  */
 
-class LiveDataObservable<T>(private val mOwner: LifecycleOwner?, private val mLiveData: LiveData<T>) :
+class LiveData2Observable<T>(private val mOwner: LifecycleOwner?, private val mLiveData: LiveData<T>) :
         Observable<T>() {
 
     override fun subscribeActual(observer: Observer<in T>) {
@@ -40,6 +40,6 @@ class LiveDataObservable<T>(private val mOwner: LifecycleOwner?, private val mLi
 
 
 fun <T> LiveData<T>.toObservable(owner: LifecycleOwner): Observable<T> =
-        LiveDataObservable(owner, this)
+        LiveData2Observable(owner, this)
 
-fun <T> LiveData<T>.toForeverObservable(): Observable<T> = LiveDataObservable(null, this)
+fun <T> LiveData<T>.toForeverObservable(): Observable<T> = LiveData2Observable(null, this)

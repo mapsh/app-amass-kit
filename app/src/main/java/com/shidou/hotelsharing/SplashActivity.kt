@@ -6,7 +6,7 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.mapsh.base.InitActivity
 import com.mapsh.glide.GlideApp
-import com.mapsh.kotlinx.rx.disposedWith
+import com.mapsh.rx.disposedWith
 import com.mapsh.utils.RxHelper
 import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.splash_activity.*

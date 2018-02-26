@@ -1,4 +1,4 @@
-package com.mapsh.kotlinx.rx
+package com.mapsh.rx
 
 import android.arch.lifecycle.GenericLifecycleObserver
 import android.arch.lifecycle.Lifecycle
@@ -54,29 +54,8 @@ class DisposeBag @JvmOverloads constructor(owner: LifecycleOwner,
 
 
     override fun onStateChanged(source: LifecycleOwner, correspondingEvent: Lifecycle.Event) {
-
-        if (event != correspondingEvent) return
-
-        when (correspondingEvent) {
-            Lifecycle.Event.ON_CREATE  -> {
-            }
-            Lifecycle.Event.ON_PAUSE   -> {
-                dispose()
-            }
-            Lifecycle.Event.ON_START   -> {
-            }
-            Lifecycle.Event.ON_RESUME  -> {
-
-            }
-            Lifecycle.Event.ON_STOP    -> {
-                dispose()
-
-            }
-            Lifecycle.Event.ON_DESTROY -> {
-                dispose()
-            }
-            Lifecycle.Event.ON_ANY     -> {
-            }
+        if (event == correspondingEvent) {
+            dispose()
         }
     }
 
@@ -88,28 +67,8 @@ fun Disposable.disposedWith(owner: LifecycleOwner,
     owner.lifecycle.addObserver(object : GenericLifecycleObserver {
 
         override fun onStateChanged(source: LifecycleOwner, correspondingEvent: Lifecycle.Event) {
-
-            if (event != correspondingEvent) return
-
-            when (correspondingEvent) {
-                Lifecycle.Event.ON_CREATE  -> {
-                }
-                Lifecycle.Event.ON_PAUSE   -> {
-                    removeObserverAndDispose(owner)
-                }
-                Lifecycle.Event.ON_START   -> {
-
-                }
-                Lifecycle.Event.ON_RESUME  -> {
-                }
-                Lifecycle.Event.ON_STOP    -> {
-                    removeObserverAndDispose(owner)
-                }
-                Lifecycle.Event.ON_DESTROY -> {
-                    removeObserverAndDispose(owner)
-                }
-                Lifecycle.Event.ON_ANY     -> {
-                }
+            if (event == correspondingEvent) {
+                removeObserverAndDispose(owner)
             }
         }
 
