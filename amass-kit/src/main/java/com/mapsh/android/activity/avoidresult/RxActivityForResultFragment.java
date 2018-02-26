@@ -39,13 +39,17 @@ public class RxActivityForResultFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        int index = mSubjects.indexOfKey(requestCode);
-        PublishSubject<RxActivityForResultInfo> subject = mSubjects.get(requestCode);
-        if (subject != null) {
-            subject.onNext(new RxActivityForResultInfo(requestCode, resultCode, data));
-            subject.onComplete();
 
-            mSubjects.remove(requestCode);
+        int index = mSubjects.indexOfKey(requestCode);
+
+        if (index >= 0) {
+            PublishSubject<RxActivityForResultInfo> subject = mSubjects.valueAt(index);
+            if (subject != null) {
+                subject.onNext(new RxActivityForResultInfo(requestCode, resultCode, data));
+                subject.onComplete();
+
+                mSubjects.removeAt(index);
+            }
         }
     }
 }

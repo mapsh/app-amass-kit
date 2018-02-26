@@ -8,7 +8,6 @@ import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 
 /**
- *
  * @author mapsh
  * @date 2018/1/5
  */
@@ -16,11 +15,10 @@ import io.reactivex.annotations.NonNull;
 public class RxActivityForResult {
     private final String TAG = "RxActivityForResult";
 
-    RxActivityForResultFragment mRxActivityForResultFragment;
+    private RxActivityForResultFragment mRxActivityForResultFragment;
 
     public RxActivityForResult(@NonNull Activity activity) {
         mRxActivityForResultFragment = getRxActivityForResultFragment(activity);
-
     }
 
     private RxActivityForResultFragment getRxActivityForResultFragment(Activity activity) {
@@ -54,6 +52,4 @@ public class RxActivityForResult {
     private Observable<RxActivityForResultInfo> requestImplementation(Intent intent, int requestCode) {
         return mRxActivityForResultFragment.startActForResult(intent, requestCode);
     }
-
-
 }

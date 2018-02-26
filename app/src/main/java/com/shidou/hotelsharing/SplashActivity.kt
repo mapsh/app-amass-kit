@@ -2,7 +2,6 @@ package com.shidou.hotelsharing
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v7.widget.AppCompatImageView
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.mapsh.base.InitActivity
@@ -70,8 +69,6 @@ class SplashActivity : InitActivity() {
                     Timber.e("$it")
                 }.disposedWith(this)
 
-
-        AppCompatImageView
 
     }
 

@@ -14,7 +14,7 @@ import io.reactivex.internal.disposables.DisposableContainer
 
 fun Disposable.disposedBy(bag: DisposeBag) = bag.add(this)
 
-object DisposeBagPlugins {
+private object DisposeBagPlugins {
     @JvmStatic
     var defaultLifecycleDisposeEvent = Lifecycle.Event.ON_DESTROY
 }
@@ -53,14 +53,15 @@ class DisposeBag @JvmOverloads constructor(owner: LifecycleOwner,
     override fun delete(d: Disposable) = composite.delete(d)
 
 
-    override fun onStateChanged(source: LifecycleOwner, e: Lifecycle.Event) {
-        when (e) {
+    override fun onStateChanged(source: LifecycleOwner, correspondingEvent: Lifecycle.Event) {
+
+        if (event != correspondingEvent) return
+
+        when (correspondingEvent) {
             Lifecycle.Event.ON_CREATE  -> {
             }
             Lifecycle.Event.ON_PAUSE   -> {
-                if (event == Lifecycle.Event.ON_PAUSE) {
-                   dispose()
-                }
+                dispose()
             }
             Lifecycle.Event.ON_START   -> {
             }
@@ -68,18 +69,53 @@ class DisposeBag @JvmOverloads constructor(owner: LifecycleOwner,
 
             }
             Lifecycle.Event.ON_STOP    -> {
-                if (event == Lifecycle.Event.ON_STOP) {
-                    dispose()
-                }
+                dispose()
+
             }
             Lifecycle.Event.ON_DESTROY -> {
-                if (event == Lifecycle.Event.ON_DESTROY) {
-                    dispose()
-                }
+                dispose()
             }
             Lifecycle.Event.ON_ANY     -> {
             }
         }
     }
 
+}
+
+fun Disposable.disposedWith(owner: LifecycleOwner,
+                            event: Lifecycle.Event = DisposeBagPlugins.defaultLifecycleDisposeEvent) {
+
+    owner.lifecycle.addObserver(object : GenericLifecycleObserver {
+
+        override fun onStateChanged(source: LifecycleOwner, correspondingEvent: Lifecycle.Event) {
+
+            if (event != correspondingEvent) return
+
+            when (correspondingEvent) {
+                Lifecycle.Event.ON_CREATE  -> {
+                }
+                Lifecycle.Event.ON_PAUSE   -> {
+                    removeObserverAndDispose(owner)
+                }
+                Lifecycle.Event.ON_START   -> {
+
+                }
+                Lifecycle.Event.ON_RESUME  -> {
+                }
+                Lifecycle.Event.ON_STOP    -> {
+                    removeObserverAndDispose(owner)
+                }
+                Lifecycle.Event.ON_DESTROY -> {
+                    removeObserverAndDispose(owner)
+                }
+                Lifecycle.Event.ON_ANY     -> {
+                }
+            }
+        }
+
+        fun removeObserverAndDispose(owner: LifecycleOwner) {
+            owner.lifecycle.removeObserver(this)
+            dispose()
+        }
+    })
 }
