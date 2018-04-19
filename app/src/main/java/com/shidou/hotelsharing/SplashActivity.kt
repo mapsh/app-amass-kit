@@ -4,10 +4,10 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
-import com.mapsh.base.InitActivity
-import com.mapsh.glide.GlideApp
-import com.mapsh.rx.disposedWith
-import com.mapsh.utils.RxHelper
+import com.niuub.base.AbsAmassBaseActivity
+import com.niuub.glide.GlideApp
+import com.shidou.rx.disposedWith
+import com.shidou.rx.RxHelper
 import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.splash_activity.*
 import timber.log.Timber
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
  *
  */
 
-class SplashActivity : InitActivity() {
+class SplashActivity : AbsAmassBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,6 @@ class SplashActivity : InitActivity() {
 
 
         RxHelper.countdown(5)
-                .compose(RxHelper.bindToLifecycle(this))
                 .compose(RxHelper.io2Main())
                 .subscribe {
                     if (it == 4) {
@@ -47,7 +46,7 @@ class SplashActivity : InitActivity() {
                     } else {
                       //  skip()
                     }
-                }
+                }.disposedWith(this)
     }
 
     private fun load() {

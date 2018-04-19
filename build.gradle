@@ -10,9 +10,10 @@ buildscript {
         jcenter()
         maven { url "http://objectbox.net/beta-repo/" }
         maven { url 'https://dl.google.com/dl/android/maven2/' }
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0-alpha06'
+        classpath 'com.android.tools.build:gradle:3.1.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.tencent.bugly:symtabfileuploader:2.1.0'
         classpath "com.tencent.bugly:tinker-support:1.1.1"

@@ -13,5 +13,5 @@ dependencies {
     // 6.0运行时权限
     api 'com.yanzhenjie:permission:1.1.2'
 
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.38'
 }
